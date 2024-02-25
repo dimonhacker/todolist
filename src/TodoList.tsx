@@ -75,14 +75,16 @@ export const TodoList = (props: TodoPropsType) => {
                 })}
             </List>
             <div>
-                <Button sx={style} variant={props.filter === "All" ? 'contained' : 'outlined'} size={"small"}
+                <Button sx={style} variant={props.filter === "All" ? 'contained' : 'outlined'}  size={"small"}
                         onClick={() => props.changeFilter("All", props.id)}
                         className={props.filter === "All" ? 'active-filter' : ''}>All</Button>
                 <Button sx={style} variant={props.filter === "Active" ? 'contained' : 'outlined'} size={"small"}
                         onClick={() => props.changeFilter("Active", props.id)}
+                        color={"primary"}
                         className={props.filter === "Active" ? 'active-filter' : ''}>Active</Button>
                 <Button sx={style} variant={props.filter === "Completed" ? 'contained' : 'outlined'} size={"small"}
                         onClick={() => props.changeFilter("Completed", props.id)}
+                        color={"secondary"}
                         className={props.filter === "Completed" ? 'active-filter' : ''}>Completed</Button>
             </div>
         </div>

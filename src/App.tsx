@@ -4,6 +4,8 @@ import {TodoList} from "./TodoList";
 import {v1} from "uuid";
 import AddItemForm from "./components/AddItemForm";
 import styled from "styled-components";
+import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 
 export type FilterType = "All" | "Active" | "Completed"
 type TodoListsType = {
@@ -79,7 +81,7 @@ function App() {
             setTasks({...tasks})
         }
     }
-    const changeTaskTitle = (id: string, newTitle:string, todolistId: string) => {
+    const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
         let todolistTasks = tasks[todolistId]
         let task = todolistTasks.find(t => t.id === id)
         if (task) {
@@ -87,9 +89,9 @@ function App() {
             setTasks({...tasks})
         }
     }
-    const changeHeaderTitle = (id: string, newTitle:string) => {
-        let todoList = todolists.find(tl=>tl.id===id);
-        if(todoList){
+    const changeHeaderTitle = (id: string, newTitle: string) => {
+        let todoList = todolists.find(tl => tl.id === id);
+        if (todoList) {
             todoList.title = newTitle
             setTodolists([...todolists])
         }
@@ -114,7 +116,21 @@ function App() {
     }
     return (
         <div className="App">
+            <AppBar position="static">
+                <Toolbar variant="dense">
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" component="div">
+                        Todolist
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container style={{padding:'20px'}}>
                     <AddItemForm addItem={addTodoList}></AddItemForm>
+                </Grid>
+                <Grid container spacing={3}>
                     {
                         todolists.map(
                             todolist => {
@@ -125,25 +141,31 @@ function App() {
                                 } else if (todolist.filter === "Completed") {
                                     tasksForToDoList = allToDoListTasks.filter(t => t.isDone)
                                 }
-                                return <TodoList key={todolist.id} deleteTaskHandler={removeToDoList} id={todolist.id}
-                                                 title={todolist.title}
-                                                 tasks={tasksForToDoList} removeTask={removeItemById}
-                                                 changeFilter={changeFilter}
-                                                 addItem={addItem} changeTaskStatus={changeTaskStatus}
-                                                 changeTitle={changeTaskTitle}
-                                                 changeHeaderTitle={changeHeaderTitle}
-                                                 filter={todolist.filter}/>
+                                return <Grid item>
+                                    <Paper style={{padding: '10px'}}>
+                                        <TodoList key={todolist.id} deleteTaskHandler={removeToDoList} id={todolist.id}
+                                                  title={todolist.title}
+                                                  tasks={tasksForToDoList} removeTask={removeItemById}
+                                                  changeFilter={changeFilter}
+                                                  addItem={addItem} changeTaskStatus={changeTaskStatus}
+                                                  changeTitle={changeTaskTitle}
+                                                  changeHeaderTitle={changeHeaderTitle}
+                                                  filter={todolist.filter}/>
+                                    </Paper>
+                                </Grid>
                             })
                     }
+                </Grid>
+            </Container>
             {/*<TodoList title = "Songs" tasks = {tasks2}/>*/}
         </div>
     );
 }
 
-export const FlexWrapper = styled.div<FlexWrapperType>`
-  display: flex;
-  flex-direction: ${props => props.isColumn ? 'column' : 'row'};
-  justify-content: start;
-  align-items: center;
-`
-export default App;
+    export const FlexWrapper = styled.div<FlexWrapperType>`
+      display: flex;
+      flex-direction: ${props => props.isColumn ? 'column' : 'row'};
+      justify-content: start;
+      align-items: center;
+    `
+    export default App;

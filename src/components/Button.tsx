@@ -1,17 +1,18 @@
 import React from 'react';
+import {Button} from "@mui/material";
 
 type ButtonType = {
     name:string,
     callback:()=>void
 }
 
-const Button = (props:ButtonType) => {
+const ButtonComponent = (props:ButtonType) => {
     const onclickHandler=()=>{
         props.callback()
     }
     return (
-        <button onClick={onclickHandler}>{props.name}</button>
+        <Button onClick={onclickHandler}>{props.name}</Button>
     );
 };
 
-export default Button;
+export default ButtonComponent;

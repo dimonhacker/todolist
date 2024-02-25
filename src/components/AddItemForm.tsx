@@ -27,9 +27,8 @@ const AddItemForm = (props:AddItemFormPropsType) => {
     }
     return (
         <div>
-            <TextField size={"small"} value={title} onKeyDown={onKeyPressHandler} onChange={onChangeHandler} className={error? 'error':''}/>
+            <TextField size={"small"} value={title} onKeyDown={onKeyPressHandler} onChange={onChangeHandler} error={!!error} label={"Title"} helperText={error} />
             <IconButton onClick={addItem}><AddCircle/></IconButton>
-            {error && <div className={'error-message'}>{error}</div>}
         </div>
     );
 };
